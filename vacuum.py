@@ -1,7 +1,11 @@
+# Amirhosseein Eskini & AmirReza Elahi
+
 from random import randint
 from sys import platform
 from os import system
 from time import sleep
+from typing import List
+from terminaltables import SingleTable
 
 correctness = False
 while not correctness:
@@ -22,6 +26,13 @@ state = {
     "agentLocation": [],
     "checkRooms": []
 }
+
+def showInTable(rooms: list):
+    table_instance = SingleTable(rooms)
+    table_instance.outer_border = True
+    table_instance.inner_heading_row_border = False
+    table_instance.inner_column_border = False
+    print(table_instance.table)
 
 def initialCheckRooms() -> list:
     global size
@@ -51,21 +62,22 @@ def makeBoxes(boxesStatus: list = None) -> list:
             boxes[i].append(randint(0, 1))
     return boxes
 
-def showRooms() -> str :
+def showRooms():
     state["boxes"] = makeBoxes() if state["boxes"] == [] else state["boxes"]
     boxes = state["boxes"]
-    rooms = ""
+    rooms = []
     counter = 1
     for i in range(len(boxes)):
-        rooms += "\n"
-        for j in range(len(boxes[i])):
-            rooms += "%s "%counter
+        rooms.append([])
+        for _ in range(len(boxes)):
+            rooms[i].append(str(counter))
             counter += 1
-    return rooms
+
+    showInTable(rooms)
 
 def setVacuumLocation() -> list:
     global size
-    print(showRooms())
+    showRooms()
     place = int(input("choose a room please: "))
     if (place <= (size*size)):
         row = int(place % size)
