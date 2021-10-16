@@ -1,6 +1,6 @@
 from random import randint
 from sys import platform
-from os import stat, system
+from os import system
 from time import sleep
 
 correctness = False
@@ -20,8 +20,27 @@ state = {
     "boxes": [],
     "canvas": "",
     "agentLocation": [],
+    "checkRooms": []
 }
 
+def initialCheckRooms() -> list:
+    global size
+    array = []
+    for i in range(size):
+        array.append([])
+        for _ in range(size):
+            array[i].append(0)
+    return array
+
+def isCheckedAllRooms() -> bool:
+    global size
+    array = state["checkRooms"]
+    flag = 1
+    for i in range(size):
+        for j in range(size):
+            item = array[i][j]
+            flag = item * flag
+    return flag == 1
 
 def makeBoxes(boxesStatus: list = None) -> list:
     global size
@@ -84,9 +103,9 @@ def moveAgent(currentLocation: list = None) -> list:
     global state
     if currentLocation == []:
         newLocation = setVacuumLocation()
-        print("~~> %s"%newLocation)
     else:
         newLocation = [currentLocation[0], currentLocation[1]]
+        state["checkRooms"][newLocation[0]][newLocation[1]] = 1
 
         if currentLocation[0] == 0:
             state["changeRowTo"] = "down"
@@ -163,11 +182,17 @@ def action() -> None:
         state["status"], state["boxes"], state["agentLocation"]
     )
 
+def start(unlimitedMovement: bool):
+    if unlimitedMovement:
+        while True:
+            action()
+    else:
+        while isCheckedAllRooms() == False:
+            action()
 
 def initialize() -> None:
     global state
-    while state["status"] != "Finished.":
-        action()
-
+    state["checkRooms"] = initialCheckRooms()
+    start(True)
 
 initialize()
