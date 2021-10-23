@@ -8,6 +8,7 @@ from typing import List
 from terminaltables import SingleTable
 
 correctness = False
+
 while not correctness:
     size = input("Enter room size: (size must be a number and bigger than 1)")
     if ((size.isdigit()) and (int(size) > 1)):
@@ -15,6 +16,7 @@ while not correctness:
         correctness = True
     else:
         print("Please enter a correct number.")
+
 state = {
     "status": "Moving...",
     "clearCommand": "cls" if platform == "win32" else "clear",
