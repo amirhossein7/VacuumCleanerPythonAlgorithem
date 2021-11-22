@@ -4,7 +4,6 @@ from random import randint
 from sys import platform
 from os import system
 from time import sleep
-from typing import List
 from terminaltables import SingleTable
 
 correctness = False
@@ -33,7 +32,8 @@ def showInTable(rooms: list):
     table_instance = SingleTable(rooms)
     table_instance.outer_border = True
     table_instance.inner_heading_row_border = False
-    table_instance.inner_column_border = False
+    table_instance.inner_column_border = True
+    table_instance.inner_row_border = True
     print(table_instance.table)
 
 def initialCheckRooms() -> list:
@@ -79,23 +79,31 @@ def showRooms():
 
 def setVacuumLocation() -> list:
     global size
+    correctness = False
     showRooms()
-    place = int(input("choose a room please: "))
-    if (place <= (size*size)):
-        row = int(place % size)
-        if row == 0 :
-            row = int(place/size) - 1
-        else:
-            row = int(place/size)
+    
+    while not correctness:
+        place = input("choose a room please: ")
+        if place.isdigit():
+            correctness = True
+            place = int(place)
+            if (place <= (size*size)):
+                row = int(place % size)
+                if row == 0 :
+                    row = int(place/size) - 1
+                else:
+                    row = int(place/size)
 
-        index = int(place % size)
-        if index == 0:
-            index = size - 1
-        else: 
-            index -= 1
-        return [row, index]
-    else :
-        print("❌ out of range")
+                index = int(place % size)
+                if index == 0:
+                    index = size - 1
+                else: 
+                    index -= 1
+                return [row, index]
+            else :
+                print("❌ out of range")
+        else:
+            print("Please enter a correct input!")
 
 def makeCanvas(boxes: list, agentLocation: list) -> str:
     global state
