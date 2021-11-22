@@ -1,4 +1,4 @@
-# Vacuum Simulator Algorithem
+# Vacuum Cleaner Simulator Algorithem
 This is a vacuum simulator app that simulate movement pattern of a simple vacuum cleaner.
 I used this [repository](https://gitlab.com/kyxey/vacuum) as the code base of this project.
 
@@ -18,5 +18,5 @@ pip install -r requirement.txt
 
 ## Usage
 ```bash
-python3 vacuum.py
+python3 vacuum_cleaner.py
 ```
