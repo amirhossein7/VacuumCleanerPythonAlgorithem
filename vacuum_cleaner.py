@@ -4,6 +4,7 @@ from random import randint
 from sys import platform
 from os import system
 from time import sleep
+from typing import List
 from terminaltables import SingleTable
 
 correctness = False
@@ -85,7 +86,6 @@ def setVacuumLocation() -> list:
     while not correctness:
         place = input("choose a room please: ")
         if place.isdigit():
-            correctness = True
             place = int(place)
             if (place <= (size*size)):
                 row = int(place % size)
@@ -99,6 +99,8 @@ def setVacuumLocation() -> list:
                     index = size - 1
                 else: 
                     index -= 1
+
+                correctness = True
                 return [row, index]
             else :
                 print("❌ out of range")
