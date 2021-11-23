@@ -107,21 +107,20 @@ def setVacuumLocation() -> list:
         else:
             print("Please enter a correct input!")
 
-def makeCanvas(boxes: list, agentLocation: list) -> str:
+def makeCanvas(boxes: list, agentLocation: list) -> list:
     global state
-    canvas = ""
+    canvas = []
     for i in range(len(boxes)):
-        canvas += "\n"
+        canvas.append([])
         for j in range(len(boxes[i])):
-            canvas += (
-                "🧹 "
+            canvas[i].append(               
+                 "🧹"
                 if i == agentLocation[0] and j == agentLocation[1]
-                else "🦠 "
+                else "🦠"
                 if boxes[i][j] == 1
-                else "🧻 "
+                else "🧻"
             )
     return canvas
-
 
 def moveAgent(currentLocation: list = None) -> list:
     global state
@@ -196,12 +195,11 @@ def action() -> None:
     )
     state["boxes"] = makeBoxes() if state["boxes"] == [] else state["boxes"]
     canvas = makeCanvas(state["boxes"], state["agentLocation"])
-    print(
-        "Room size: " + str(size) + "x" + str(size),
-        canvas,
-        "Status: " + state["status"],
-        sep="\n",
-    )
+
+    print("Room size: " + str(size) + "x" + str(size))
+    showInTable(canvas)
+    print("Status: " + state["status"], sep="\n")
+
     state["status"] = changeStatus(
         state["status"], state["boxes"], state["agentLocation"]
     )
@@ -217,6 +215,6 @@ def start(unlimitedMovement: bool):
 def initialize() -> None:
     global state
     state["checkRooms"] = initialCheckRooms()
-    start(True)
+    start(False)
 
 initialize()
