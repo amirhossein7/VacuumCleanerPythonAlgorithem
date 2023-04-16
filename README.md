@@ -3,7 +3,7 @@ This is a vacuum simulator app that simulate movement pattern of a simple vacuum
 I used this [repository](https://gitlab.com/kyxey/vacuum) as the code base of this project.
 
 ## Installtion
-Use the python version 3 or newer.
+Use the python version 3 or later.
 
 Create an enviroment for running your project in it (optional)
 ``` bash
